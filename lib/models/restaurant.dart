@@ -1,5 +1,5 @@
 
-import 'package:deq/models/food.dart';
+import 'package:deque/models/food.dart';
 
 class Restaurant {
   String name;
