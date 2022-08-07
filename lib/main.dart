@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     theme: ThemeData(primarySwatch: Colors.deepPurple),
 
 
-      darkTheme: ThemeData(primaryColor: Colors.blue,
+      darkTheme: ThemeData(primaryColor: Color.fromARGB(255, 247, 249, 250),
       brightness: Brightness.dark),
 
       initialRoute: "/",

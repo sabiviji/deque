@@ -20,11 +20,11 @@ class _tab3State extends State<tab3> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
+      height: MediaQuery.of (context).size.height-10,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius : BorderRadius.all(Radius.circular(20)),
-        color: Colors.white,
+        color: Color(0xFFF5F5F5),
         
               ),
       
@@ -36,110 +36,111 @@ class _tab3State extends State<tab3> {
         padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
 
         child: Container(
-          height: 150,
-          child: Card(elevation: 5.0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-
-          child: Container(width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-
-            children: [
-              Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 55.0,
-                      height: 55.0,
-              
-                      decoration: BoxDecoration(
-                        color:Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20))
-                        ),
-              
-                      child: Container(
+          child: SingleChildScrollView(
+            child: Card(elevation: 5.0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        
+            child: Container(width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+        
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
                         width: 55.0,
                         height: 55.0,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          child: Image.network(pictures[index])),
-                        ),
-              
-              
-                        
-              
-                    ),
-              
-                    
-              
-                    SizedBox(width: 17,),
-              
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(Names[index], style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-              
-                        
-                        ),
-              
-                        SizedBox(height: 10,),
-                        
-                        Container(
-                          child: CounterButton(
-                            loading: false,
-                            onChange: (value) {
-                              setState(() {
-                                counter[index] = value;
-                                });
-                        
-                        
-                      },
-                      count: counter[index],
-                      countColor: Colors.purple,
-                      buttonColor: Colors.purpleAccent,
-                      progressColor: Colors.purpleAccent,
-                      
-                      )
-                  )
-                      ],
-                    ),
-
-
-                     Column(
-                        children: [
-                                  
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(35, 10, 10, 90),
-                            child: Text(prices[index], style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold)),
+                
+                        decoration: BoxDecoration(
+                          color:Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(20))
                           ),
+                
+                        child: Container(
+                          width: 55.0,
+                          height: 55.0,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            child: Image.network(pictures[index])),
+                          ),
+                
+                
+                          
+                
+                      ),
+                
+                      
+                
+                      SizedBox(width: 17,),
+                
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(Names[index], style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                
+                          
+                          ),
+                
+                          SizedBox(height: 10,),
+                          
+                          Container(
+                            child: CounterButton(
+                              loading: false,
+                              onChange: (value) {
+                                setState(() {
+                                  counter[index] = value;
+                                  });
+                          
+                          
+                        },
+                        count: counter[index],
+                        countColor: Colors.purple,
+                        buttonColor: Colors.purpleAccent,
+                        progressColor: Colors.purpleAccent,
+                        
+                        )
+                    )
                         ],
                       ),
-
-              
-              
-              
-              
-              
-                  ],
-                  
-              
-              
-                  
-                  ),
-              )
-
+        
+        
+                       Column(
+                          children: [
+                                    
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(35, 10, 10, 90),
+                              child: Text(prices[index], style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold)),
+                            ),
+                          ],
+                        ),
+        
                 
-            ],
-          ),
-          ),
-
+                
+                
+                
+                
+                    ],
+                    
+                
+                
+                    
+                    ),
+                )
+        
+                  
+              ],
+            ),
+            ),
+        
+            ),
           ),
         ),
       )),

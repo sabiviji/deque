@@ -73,11 +73,14 @@ class _homepgState extends State<homepg> {
 
                   Container(
                     height: 45,
+                    
                     decoration: BoxDecoration(
                       color: Colors.deepPurpleAccent,
+                    
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                     child: TabBar(
+                        
                         indicator: BoxDecoration(
                           color: Colors.purple,
                           borderRadius: BorderRadius.circular(25.0),
@@ -113,7 +116,9 @@ class _homepgState extends State<homepg> {
                   ),
 
                   Expanded(
+                      
                       child: TabBarView(
+                        
                     children: [
                       tab1(),
                       tab2(),

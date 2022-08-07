@@ -20,11 +20,12 @@ class _tab1State extends State<tab1> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
+      
+      height: MediaQuery.of (context).size.height-10,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius : BorderRadius.all(Radius.circular(20)),
-        color: Colors.white,
+        color:Color(0xFFF5F5F5),
         
               ),
       
@@ -58,7 +59,7 @@ class _tab1State extends State<tab1> {
                         height: 55.0,
                 
                         decoration: BoxDecoration(
-                          color:Colors.white,
+                          color:Color(0xFFF5F5F5),
                           borderRadius: BorderRadius.all(Radius.circular(20))
                           ),
                 
