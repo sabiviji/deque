@@ -1,4 +1,5 @@
 import 'package:deque/pages/home_page.dart';
+import 'package:deque/pages/signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -121,7 +122,28 @@ class _LoginPageState extends State<LoginPage> {
                   passwordField,
                   SizedBox(height: 35),
                   loginButton,
-                  SizedBox(height: 15)
+                  SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Don't have an account? "),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignupPage()));
+                        },
+                        child: Text(
+                          'Signup',
+                          style: TextStyle(
+                              color: Colors.deepPurpleAccent,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
