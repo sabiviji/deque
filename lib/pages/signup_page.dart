@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:deque/model/user_model.dart';
+import 'package:deque/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -151,7 +155,7 @@ class _SignupPageState extends State<SignupPage> {
         padding: EdgeInsets.fromLTRB(10, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: (() {
-          //signUp(emailEditingController.text, passwordEditingController.text);
+          signUp(emailEditingController.text, passwordEditingController.text);
         }),
         child: Text(
           'Signup',
@@ -162,6 +166,96 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
 
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.deepPurpleAccent,
+          ),
+          onPressed: (() {
+            Navigator.of(context).pop();
+          }),
+        ),
+      ),
+      body: Center(
+          child: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(36),
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 180,
+                      child: Image.asset(
+                        'assets/images/logo.svg',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    firstNameField,
+                    SizedBox(height: 20),
+                    lastNameField,
+                    SizedBox(height: 20),
+                    emailField,
+                    SizedBox(height: 20),
+                    passwordField,
+                    SizedBox(height: 20),
+                    confirmPasswordField,
+                    SizedBox(height: 20),
+                    signupButton,
+                    SizedBox(height: 15),
+                  ],
+                )),
+          ),
+        ),
+      )),
+    );
+  }
+
+  // signup function
+  void signUp(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => {postDetailsToFirestore()})
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    }
+  }
+
+  postDetailsToFirestore() async {
+    // calling our firestore
+    // calling our model
+    // sending these values
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+
+    UserModel userModel = UserModel();
+
+    // writing all the valus
+    userModel.email = user!.email;
+    userModel.uid = user.uid;
+    userModel.firstname = firstNameEditingController.text;
+    userModel.lastname = lastNameEditingController.text;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
+    Fluttertoast.showToast(msg: "Accout created succesfully!");
+    Navigator.pushAndRemoveUntil((context),
+        MaterialPageRoute(builder: (context) {
+      return HomePage();
+    }), (route) => false);
   }
 }
