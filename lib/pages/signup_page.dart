@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deque/model/user_model.dart';
 import 'package:deque/pages/home_page.dart';
+import 'package:deque/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,6 +16,8 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   // form key
   final _formKey = GlobalKey<FormState>();
+  // loading
+  bool loading = false;
 
   // editing controller
   final firstNameEditingController = new TextEditingController();
@@ -166,69 +169,73 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.deepPurpleAccent,
-          ),
-          onPressed: (() {
-            Navigator.of(context).pop();
-          }),
-        ),
-      ),
-      body: Center(
-          child: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(36),
-            child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 180,
-                      child: Image.asset(
-                        'assets/images/logo.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    firstNameField,
-                    SizedBox(height: 20),
-                    lastNameField,
-                    SizedBox(height: 20),
-                    emailField,
-                    SizedBox(height: 20),
-                    passwordField,
-                    SizedBox(height: 20),
-                    confirmPasswordField,
-                    SizedBox(height: 20),
-                    signupButton,
-                    SizedBox(height: 15),
-                  ],
-                )),
-          ),
-        ),
-      )),
-    );
+    return loading
+        ? const Loading()
+        : Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.deepPurpleAccent,
+                ),
+                onPressed: (() {
+                  Navigator.of(context).pop();
+                }),
+              ),
+            ),
+            body: Center(
+                child: SingleChildScrollView(
+              child: Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(36),
+                  child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 180,
+                            child: Image.asset(
+                              'assets/images/logo.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          firstNameField,
+                          SizedBox(height: 20),
+                          lastNameField,
+                          SizedBox(height: 20),
+                          emailField,
+                          SizedBox(height: 20),
+                          passwordField,
+                          SizedBox(height: 20),
+                          confirmPasswordField,
+                          SizedBox(height: 20),
+                          signupButton,
+                          SizedBox(height: 15),
+                        ],
+                      )),
+                ),
+              ),
+            )),
+          );
   }
 
   // signup function
   void signUp(String email, String password) async {
     if (_formKey.currentState!.validate()) {
+      setState(() => loading = true);
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) => {postDetailsToFirestore()})
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
+        setState(() => loading = false);
       });
     }
   }
