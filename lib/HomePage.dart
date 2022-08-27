@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'utils/morning_card.dart';
 import 'utils/canteens.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'utils/customscroll.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -121,17 +122,22 @@ class _HomePageState extends State<HomePage> {
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
-            child: GridView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, crossAxisSpacing: 15, childAspectRatio: 1),
-              itemCount: canteen_cards.length,
-              itemBuilder: ((context, index) {
-                return CanteenCard(
-                  canteenName: canteen_cards[index][0],
-                );
-              }),
+            child: ScrollConfiguration(
+              behavior: CustomScroll(),
+              child: GridView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15,
+                    childAspectRatio: 1),
+                itemCount: canteen_cards.length,
+                itemBuilder: ((context, index) {
+                  return CanteenCard(
+                    canteenName: canteen_cards[index][0],
+                  );
+                }),
+              ),
             ),
           ),
         )
@@ -139,3 +145,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
