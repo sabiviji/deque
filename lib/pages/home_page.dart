@@ -1,9 +1,9 @@
 import 'package:deque/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'utils/morning_card.dart';
-import 'utils/canteens.dart';
+import 'package:deque/utils/home_page/morning_card.dart';
+import 'package:deque/utils/home_page/canteens.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'utils/customscroll.dart';
+import 'package:deque/utils/home_page/customscroll.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -145,4 +145,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
